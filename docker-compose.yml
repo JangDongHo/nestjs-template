@@ -1,0 +1,28 @@
+services:
+  app:
+    container_name: assignment-app
+    build:
+      context: .
+      target: build # 빌드 타겟 지정
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app # 소스 코드 변경 시 자동 반영
+      - /app/node_modules # node_modules는 컨테이너 내부 사용
+    env_file:
+      - .env.development
+    depends_on:
+      - mysql
+    command: pnpm start:dev
+
+  mysql:
+    container_name: assignment-mysql
+    image: mysql:latest
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./mysql_data:/var/lib/mysql

@@ -1,12 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { StageModule } from './stage/stage.module';
-import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { ConfigModule } from '@nestjs/config';
+import { LeaderboardModule } from './api/leaderboard/leaderboard.module';
+import { StageModule } from './api/stage/stage.module';
+import { DatabaseModule } from './type-orm/database.module';
 
 @Module({
-  imports: [StageModule, LeaderboardModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.development',
+    }),
+    DatabaseModule,
+    StageModule,
+    LeaderboardModule,
+  ],
 })
 export class AppModule {}
