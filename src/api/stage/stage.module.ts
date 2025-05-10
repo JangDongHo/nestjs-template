@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Stage } from 'src/type-orm/entities/stage/stage.entity';
+import { StageProgressModule } from 'src/api/stage-progress/stage-progress.module';
 import { StageController } from './stage.controller';
 import { StageService } from './stage.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Stage])],
+  imports: [StageProgressModule],
   controllers: [StageController],
   providers: [StageService],
 })

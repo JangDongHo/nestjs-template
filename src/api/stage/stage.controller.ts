@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateCompleteDto } from 'src/api/stage/dtos/create-complete.dto';
+import { UpsertCompleteDto } from 'src/api/stage/dtos/upsert-complete.dto';
 import { StageService } from './stage.service';
 
 @ApiTags('Stage')
@@ -9,7 +9,7 @@ export class StageController {
   constructor(private readonly stageService: StageService) {}
 
   @Post('complete')
-  async createComplete(@Body() body: CreateCompleteDto) {
-    return this.stageService.create(body);
+  async saveComplete(@Body() body: UpsertCompleteDto) {
+    return this.stageService.save(body);
   }
 }
